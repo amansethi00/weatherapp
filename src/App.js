@@ -1,7 +1,7 @@
 import "./App.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {axios} from "axios";
+
 import {
   faSearchLocation,
   faWind,
