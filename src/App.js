@@ -27,9 +27,8 @@ function App() {
     if (e.key === "Enter" && userInput !== "") {
       setShowLoader(true);
       fetch(
-        "https://api.openweathermap.org/data/2.5/weather?q=" +
-          userInput +
-          "&APPID=0ec25607079c0340148f363221b79c62"
+        ` ${process.env.REACT_APP_API_URL}${userInput}${process.env.REACT_APP_API_KEY}
+          `
       )
         .then((response) => response.json())
         .then(
