@@ -10,7 +10,10 @@
   margin: auto;
   /* max-width: 25rem; */
 }
-
+:root {
+  background-image: url(./mountain.jpg);
+  background-position: left;
+}
 input {
   border-top-style: hidden;
   border-right-style: hidden;
@@ -18,9 +21,10 @@ input {
   border-bottom-style: hidden;
 }
 .input {
-  margin-top: 0.5rem;
+  padding-top: 0.5rem;
   padding-left: 0.2rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: initial;
 }
 .input:focus {
   outline: none;
@@ -32,6 +36,12 @@ input {
   margin: auto;
   border-radius: 1rem;
   padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .body-container {
@@ -39,16 +49,25 @@ input {
   max-width: 15rem;
   display: flex;
   flex-direction: column;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
 }
 .loader {
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .icon-info {
   font-size: small;
   font-weight: lighter;
 }
-.icon {
-}
+
 .body-head {
   display: flex;
   flex-direction: column;
