@@ -1,35 +1,99 @@
-import './App.css';
+import "./App.css";
 import {useState} from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
-import {RingLoader,PulseLoader,PacmanLoader,MoonLoader} from "react-spinners";
-import Loader from "react-loader";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+  faSearchLocation,
+  faWind,
+  faTint,
+} from "@fortawesome/free-solid-svg-icons";
+import {RingLoader} from "react-spinners";
+
+// import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios';
 function App() {
   const [userInput, setuserInput] = useState("");
   const [showLoader, setShowLoader] = useState(false);
-  function inputHandler(e){
+  const [weather, setWeather] = useState("");
+  const [JSON, setJSON] = useState({});
+  const [bgImage, setbgImage] = useState("");
+  function inputHandler(e) {
     setuserInput(e.target.value);
     // console.log(e.target.value);
   }
-  function handleKeyDown(e){
-    if(e.key === "Enter" && userInput!==""){
+  function handleKeyDown(e) {
+    if (e.key === "Enter" && userInput !== "") {
       setShowLoader(true);
-      
-      
-      
+      fetch(
+        "http://api.openweathermap.org/data/2.5/weather?q=" +
+          userInput +
+          "&APPID=0ec25607079c0340148f363221b79c62"
+      )
+        .then((response) => response.json())
+        .then(
+          (json) => {
+            console.log(json);
+            setJSON({
+              icon:
+                "http://openweathermap.org/img/wn/" +
+                json.weather[0].icon +
+                "@2x.png",
+              temp: json.main.temp,
+              main: json.weather[0].main,
+            });
+            setWeather(parseInt(json.main.temp) - 273);
+            setbgImage(json.weather[0].main);
+            console.log(bgImage);
+            setShowLoader(false);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
   }
   return (
     <div className="App">
-      <div className="head-container"><h1 className="head-text">Weather App</h1>
-      <div className="search-box"><FontAwesomeIcon icon={faSearchLocation} /><input type="text" placeholder = "Enter City" className="input" onChange={inputHandler} onKeyDown={handleKeyDown}></input></div>
-      
+      <div className="head-container">
+        <h1 className="head-text">Weather App</h1>
+        <div className="search-box">
+          <FontAwesomeIcon icon={faSearchLocation} />
+          <input
+            type="text"
+            placeholder="Enter City"
+            className="input"
+            onChange={inputHandler}
+            onKeyDown={handleKeyDown}
+          ></input>
+        </div>
       </div>
       <div className="body-container">
-      <RingLoader loading={showLoader} color="orange"></RingLoader>
+        <RingLoader
+          loading={showLoader}
+          color="orange"
+          className="loader"
+        ></RingLoader>
+        <div className="fetchedData">
+          <div className="body-head">
+            <img src={JSON.icon} alt="weather logo" className="icon"></img>
+            <sapn class="icon-info">{JSON.main}</sapn>
+          </div>
+          <div className="body-content">
+            <span className="temperature">{weather}°C</span>
+
+            <span>
+              <FontAwesomeIcon
+                icon={faWind}
+                style={{marginRight: "0.5rem"}}
+              ></FontAwesomeIcon>{" "}
+              wind
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faTint} style={{marginRight: "1rem"}} />
+              humidity
+            </span>
+            <span>sunlight</span>
+          </div>
+        </div>
       </div>
-      
-      
     </div>
   );
 }
