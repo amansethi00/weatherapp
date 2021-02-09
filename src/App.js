@@ -31,21 +31,26 @@ function App() {
         .then(
           (json) => {
             console.log(json);
-            setJSON({
-              icon:
-                "http://openweathermap.org/img/wn/" +
-                json.weather[0].icon +
-                "@2x.png",
-              temp: json.main.temp,
-              main: json.weather[0].main,
-            });
-            setWeather(parseInt(json.main.temp) - 273);
-            setbgImage(json.weather[0].main);
-            console.log(bgImage);
+            if (json.cod !== "404") {
+              setJSON({
+                icon:
+                  "http://openweathermap.org/img/wn/" +
+                  json.weather[0].icon +
+                  "@2x.png",
+                temp: json.main.temp,
+                main: json.weather[0].main,
+              });
+              setWeather(parseInt(json.main.temp) - 273);
+              setbgImage(json.weather[0].main);
+              console.log(bgImage);
+            } else {
+              alert("Please enter a valid city");
+            }
             setShowLoader(false);
           },
           (error) => {
-            console.log(error);
+            setShowLoader(false);
+            alert(`there is error ${error}`);
           }
         );
     }
@@ -71,28 +76,37 @@ function App() {
           color="orange"
           className="loader"
         ></RingLoader>
-        <div className="fetchedData">
-          <div className="body-head">
-            <img src={JSON.icon} alt="weather logo" className="icon"></img>
-            <sapn class="icon-info">{JSON.main}</sapn>
-          </div>
-          <div className="body-content">
-            <span className="temperature">{weather}°C</span>
+        {weather !== "" ? (
+          <>
+            <div className="fetchedData">
+              <div className="body-head">
+                <img src={JSON.icon} alt="weather logo" className="icon"></img>
+                <span className="icon-info">{JSON.main}</span>
+              </div>
+              <div className="body-content">
+                <span className="temperature">{weather}°C</span>
 
-            <span>
-              <FontAwesomeIcon
-                icon={faWind}
-                style={{marginRight: "0.5rem"}}
-              ></FontAwesomeIcon>{" "}
-              wind
-            </span>
-            <span>
-              <FontAwesomeIcon icon={faTint} style={{marginRight: "1rem"}} />
-              humidity
-            </span>
-            <span>sunlight</span>
-          </div>
-        </div>
+                <span>
+                  <FontAwesomeIcon
+                    icon={faWind}
+                    style={{marginRight: "0.5rem"}}
+                  ></FontAwesomeIcon>{" "}
+                  wind
+                </span>
+                <span>
+                  <FontAwesomeIcon
+                    icon={faTint}
+                    style={{marginRight: "1rem"}}
+                  />
+                  humidity
+                </span>
+                <span>sunlight</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
