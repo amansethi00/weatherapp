@@ -23,7 +23,7 @@ function App() {
     if (e.key === "Enter" && userInput !== "") {
       setShowLoader(true);
       fetch(
-        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
           userInput +
           "&APPID=0ec25607079c0340148f363221b79c62"
       )
@@ -34,7 +34,7 @@ function App() {
             if (json.cod !== "404") {
               setJSON({
                 icon:
-                  "http://openweathermap.org/img/wn/" +
+                  "https://openweathermap.org/img/wn/" +
                   json.weather[0].icon +
                   "@2x.png",
                 temp: json.main.temp,
