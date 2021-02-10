@@ -1,7 +1,9 @@
 import "./App.css";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
+import github from "./github.svg";
+import twitter from "./twitter (1).svg";
+import instagram from "./instagram.svg";
 import {
   faSearchLocation,
   faWind,
@@ -119,6 +121,17 @@ function App() {
       ) : (
         <></>
       )}
+      <div className="socials">
+        <a href="https://github.com/amansethi00/weatherapp">
+          <img src={github} alt="github" className="github"></img>
+        </a>
+        <a href="https://twitter.com/amansethi00">
+          <img src={twitter} alt="twitter" className="twitter"></img>
+        </a>
+        <a href="https://www.instagram.com/oye.sethi.00/">
+          <img src={instagram} alt="twitter" className="instagram"></img>
+        </a>
+      </div>
     </div>
   );
 }
